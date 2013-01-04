@@ -1,0 +1,20 @@
+<div id="delete" class="modal hide fade in" style="display: none; ">  
+<div class="modal-header">  
+<a class="close" data-dismiss="modal">×</a>  
+<h3>Delete User</h3>  
+</div>  
+<div class="modal-body">  
+<p>Do you really want to delete this record?</p>                
+</div>  
+<div class="modal-footer">  
+<a href="<?php echo $this->url("user", array('action' => 'dodelete', 
+	            								  'id'	=> $this->id));; ?>" class="btn btn-danger">Yes</a>  
+<a class="btn" data-dismiss="modal" onClick="javascript: history.back();">No</a>  
+</div>  
+</div>  
+
+<script type="text/javascript">
+    $(window).load(function(){
+        $('#delete').modal('show');
+    });
+</script>

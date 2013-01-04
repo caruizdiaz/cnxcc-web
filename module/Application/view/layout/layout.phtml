@@ -1,0 +1,101 @@
+<?php
+/**
+ * View Layout for DluTwBootstrap Demo
+ * @package DluTwBootstrap
+ * @copyright David Lukas (c) - http://www.zfdaily.com
+ * @license http://www.zfdaily.com/code/license New BSD License
+ * @link http://www.zfdaily.com
+ * @link https://bitbucket.org/dlu/dlutwbootstrap
+ */
+
+$this->headTitle()->setSeparator(' - ')
+                  ->setAutoEscape(false);
+$basePath = $this->basePath();
+
+//Twitter Bootstrap styles
+$this->headLink()->appendStylesheet($basePath . '/css/bootstrap.min.css');
+//Twitter Bootstrap style override by DluTwBootstrap
+$this->headLink()->appendStylesheet($basePath . '/css/dlu-tw-bootstrap.css');
+//Twitter Bootstrap responsive styles
+$this->headLink()->appendStylesheet($basePath . '/css/bootstrap-responsive.min.css');
+$this->headLink()->appendStylesheet($basePath . '/css/DT_bootstrap.css');
+//Google Prettify style
+//$this->headLink()->appendStylesheet($basePath . '/css/prettify.css');
+
+//jQuery and Twitter Bootstrap JS libraries
+//$this->inlineScript()->appendFile($basePath . '/js/prettify.js');
+//$this->inlineScript()->appendFile($basePath . '/js/jquery-1.8.0.min.js');
+//$this->inlineScript()->appendFile($basePath . '/media/js/jquery.js');
+//$this->inlineScript()->appendFile($basePath . '/media/js/jquery.dataTables.js');
+$this->inlineScript()->appendFile($basePath . '/js/bootstrap.min.js');
+
+echo $this->doctype();
+?>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle('Credit Control') ?>
+    <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+    <!-- Le styles -->
+    <?php echo $this->headLink() ?>
+    <?php echo $this->headStyle(); ?>
+    <!-- Scripts -->
+    <?php echo $this->headScript() ?>
+     
+     <style type="text/css">
+      @import "/media/css/demo_page.css";
+      @import "/media/css/demo_table.css";
+    </style>
+    
+    <script type="text/javascript" language="javascript" src="/media/js/jquery.js"></script>
+	<script type="text/javascript" language="javascript" src="/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="/media/js/DT_bootstrap.js"></script>
+	
+  </head>
+
+  <body style="padding-top: 60px; padding-bottom: 40px;">
+    <div class="container">
+        <!-- NavBar -->
+        <?php
+        	
+            //Set up the brand link
+            $brandLink  = new \Zend\Navigation\Page\Mvc();
+            $brandLink->setRoute('home');
+            $brandLink->setLabel('CNX Credit Control'); 
+
+            $identity	= null;
+            $isAdmin	= false;
+            
+            if ($this->zfcUserIdentity())
+            {
+            	$url	= $this->url('user', array('action' => 'loggedin'));
+            	$identity	= "Logged in as <a href=\"$url\" class=\"navbar-link\">{$this->zfcUserIdentity()->getDisplayname()}</a>";
+            	
+            	if (!$this->authenticatedUser()->isReady())
+            		$this->authenticatedUser()->loadFromDatabase($this->zfcUserIdentity()->getId());
+            	
+            	$isAdmin	= $this->authenticatedUser()->isAdmin();
+            }
+            
+            $navBar		= $isAdmin ? $this->admin_navbar : $this->others_navbar;
+            
+            echo $this->navigation()->twbNavbar()->renderNavbar($navBar, null, $identity,
+                                                                $brandLink, null, true, false, true, false, true);
+
+        ?>
+        <!-- /NavBar -->
+        <?php echo $this->content; ?>
+        <hr>
+        
+        <div id="footer">
+	     	 <div class="container">
+	        	<p class="muted credit">cnxcc web interface 0.01 &copy; <a href="http://conexiongroup.com/">conexiongroup</a> </p>
+	      	</div>
+    	</div>
+        
+
+    </div> <!-- /container -->
+    <?php echo $this->inlineScript(); ?>
+  </body>
+</html>

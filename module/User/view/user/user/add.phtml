@@ -1,0 +1,131 @@
+<?php 
+//Prepare Display options to fine tune the form presentation
+//This is optional, your form can be rendered without any display options
+$displayOptions = array(
+    //The class attribute added to the form tag
+    //'class'                 => 'my-form-class',
+    'fieldsets'             => array(
+        'fsOne'                 => array(
+            //The class attribute added to the fieldset class
+            //'class'             => 'my-fsOne-class',
+            //Should the display legend be shown? (If this option is not defined, defaults to true.)
+            'display_legend'        => true,
+            'elements'              => array(
+                'username'              => array(
+                    'class'                 => 'span3',
+                    'required'              => true,
+                ),
+            	'display_name'              => array(
+            		'class'                 => 'span3',
+            		'required'              => false,
+            	),            		
+                'password'              => array(
+                    'class'                 => 'span3',
+                    'required'              => true,
+                    //'prependIcon'           => 'icon-heart',
+                    //'appendIcon'            => 'icon-glass',
+                ),
+                'password_confirmation'  => array(
+                    'class'                 => 'span3',                    
+                    'required'              => true,
+                ),
+                'email'  => array(
+                		'class'                 => 'span3',
+                		'required'              => false,
+                ),
+                'max_disk_quota'  => array(
+                		'class'                 => 'span3',
+                		'required'              => true,
+                ),
+                'permission_id'  => array(
+                		'class'                 => 'span3',
+                		'required'              => true,
+                ),
+                'directory_id'  => array(
+                		'class'                 => 'span3',
+                		'required'              => true,
+                ),
+            ),
+        )
+   	)
+);
+
+//Form object
+$form           = $this->form;
+//Form type - one of the Twitter Bootstrap form types (horizontal, vertical, inline, search)
+//To set the form type, use the \DluTwBootstrap\Form\FormUtil::FORM_TYPE_... constants
+//The form type will be usually set here in the view script (to reuse the same view script/action controller method,
+//this demo sets the form type in the action controller)
+$formType       = $this->formType;
+//Validated data (if any)
+$validData      = $this->validData;
+/* @var $form \DluTwBootstrapDemo\Form\BlockForm */
+$form->prepare();
+
+
+if ($form->getMessages() || isset($this->error)):
+?>
+    <div class="alert alert-error">
+        <button class="close" data-dismiss="alert" type="button">x</button>
+        <strong>Invalid input!</strong>
+        <?php if (isset($this->error)) echo $this->error; else echo 'The form fields are not filled out correctly.'?>
+    </div>
+
+<!--     <div class="alert alert-success">
+        <button class="close" data-dismiss="alert" type="button">x</button>
+        <strong>User created successfully</strong>        
+    </div>    
+ -->
+<?php endif; ?>
+<?php 
+//Default form display (the 'one-liner')
+//Good for quick form preview or when there are no special presentation requirements
+//If you need more control over the form view, use the 'controlled' approach below
+echo $this->formTwb($form, $formType, $displayOptions);
+/*
+//Controlled form display
+//This is the recommended way of displaying the form since you have full control over its presentation
+//As implemented here it produces exactly the same output as the default (one-line) form display above
+//I.e. the rest of this view script produces the same output as echo $this->formTwb($form, $formType, $displayOptions);
+$fieldSet1  = $form->get('fsOne');
+$fieldSet2  = $form->get('fsTwo');
+//Form opening tag
+echo $this->formTwb()->openTag($form, $formType);
+//Hidden element
+echo $this->formRowTwb($form->get('hiddenField'));
+//Fieldset One - opening tag
+echo $this->formFieldsetTwb()->openTag($fieldSet1, $formType, $displayOptions['fieldsets']['fsOne']);
+//Text element
+echo $this->formRowTwb($fieldSet1->get('text'), $formType, $displayOptions['fieldsets']['fsOne']['elements']['text']);
+//Password element
+echo $this->formRowTwb($fieldSet1->get('password'), $formType, $displayOptions['fieldsets']['fsOne']['elements']['password']);
+//Textarea element
+echo $this->formRowTwb($fieldSet1->get('textarea'), $formType, $displayOptions['fieldsets']['fsOne']['elements']['textarea']);
+//Fieldset One - closing tag
+echo $this->formFieldsetTwb()->closeTag();
+//Fieldset Two - rendered en bloc
+echo $this->formFieldsetTwb($fieldSet2, $formType, $displayOptions['fieldsets']['fsTwo'], true, true, true);
+//Remaining elements outside of any fieldsets
+//Select element
+echo $this->formRowTwb($form->get('select'), $formType, $displayOptions['elements']['select']);
+//Multi Select element
+echo $this->formRowTwb($form->get('multiSelect'), $formType, $displayOptions['elements']['multiSelect']);
+//File element
+echo $this->formRowTwb($form->get('file'), $formType, $displayOptions['elements']['file']);
+//Text element with append/prepend text
+echo $this->formRowTwb($form->get('textAp'), $formType, $displayOptions['elements']['textAp']);
+//Text element with append/prepend icon
+echo $this->formRowTwb($form->get('iconAp'), $formType, $displayOptions['elements']['iconAp']);
+//CSRF
+echo $this->formRowTwb($form->get('csrf'));
+//Form actions
+$actions    = array(
+    $form->get('submitBtn'),
+    $form->get('resetBtn'),
+    $form->get('plainBtn'),
+);
+echo $this->formActionsTwb($actions, $formType, $displayOptions['elements']);
+//Form close tag
+echo $this->formTwb()->closeTag();
+*/
+?>

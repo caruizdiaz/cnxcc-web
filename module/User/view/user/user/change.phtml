@@ -1,0 +1,53 @@
+<?php 
+
+$displayOptions = array(
+    'fieldsets'             => array(
+        'fsOne'                 => array(
+            'display_legend'        => true,
+            'elements'              => array(
+                'username'              => array(
+                    'class'                 => 'span3',
+                    'required'              => true,
+                ),
+                'password'              => array(
+                    'class'                 => 'span3',
+                    'required'              => true,
+                    //'prependIcon'           => 'icon-heart',
+                    //'appendIcon'            => 'icon-glass',
+                ),
+                'password_confirmation'  => array(
+                    'class'                 => 'span3',                    
+                    'required'              => true,
+                ),
+                'email'  => array(
+                		'class'                 => 'span3',
+                		'required'              => false,
+                ),
+            ),
+        )
+   	)
+);
+
+//Form object
+$form           = $this->form;
+
+$form->prepare();
+
+if ($form->getMessages() || isset($this->error)):
+?>
+    <div class="alert alert-error">
+        <button class="close" data-dismiss="alert" type="button">x</button>
+        <strong>Invalid input!</strong>
+        <?php if (isset($this->error)) echo $this->error; else echo 'The form fields are not filled out correctly.'?>
+    </div>
+
+<!--     <div class="alert alert-success">
+        <button class="close" data-dismiss="alert" type="button">x</button>
+        <strong>User created successfully</strong>        
+    </div>    
+ -->
+<?php endif;
+
+echo $this->formTwb($form, null, $displayOptions); 
+
+?>

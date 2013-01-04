@@ -1,0 +1,47 @@
+<h1>List of Users</h1>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="users">
+        <thead>
+          <tr>
+          	<th>User #</th>
+            <th>Username</th>
+            <th>Real Name</th>
+            <th>Email</th>            
+            <th>Permission</th>           
+            <th>Operation</th>
+          </tr>
+        </thead>
+        <tbody>          
+          
+          <?php foreach($users as $user) : ?>          
+          	<tr class="gradeB">
+          		<td><?php echo $user->user_id; ?></td>
+	            <td class="center"><?php echo $user->username; ?></td>
+	            <td><?php echo $user->display_name; ?></td>
+	            <td><?php echo $user->email; ?></td>	           
+	            <td><?php echo $user->permission; ?></td>	            
+	            <td class="center"><a href="<?php echo $this->url("user", array('action' => 'edit', 
+	            											'id'	=> $user->user_id)); ?>">Edit</a> | 
+	            	<a href="<?php echo $this->url("user", array('action' => 'delete', 
+	            											'id'	=> $user->user_id)); ?>">Delete</a> | 
+	            	<a href="<?php echo $this->url("user", array('action' => 'change', 
+	            											'id'	=> $user->user_id)); ?>">Reset Pwd</a></td>              
+            <?php endforeach;?>
+           </tr>		
+		</tbody>
+</table>
+
+
+<script type="text/javascript" charset="utf-8">
+	$('#users').dataTable( {
+        "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>"
+    } );
+	$.extend( $.fn.dataTableExt.oStdClasses, {
+	    "sWrapper": "dataTables_wrapper form-inline"
+	} );
+</script>
+
+<?php 
+
+
+
+?>

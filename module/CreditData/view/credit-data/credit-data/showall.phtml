@@ -1,0 +1,101 @@
+
+<h1>Calls by Client</h1>
+<br>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="calls">
+        <thead>
+          <tr>
+          	<th>Client ID</th>
+            <th>Credit Type</th>
+            <th>Number of Calls</th>
+            <th>Concurrent Calls</th>
+            <th>Max Amount</th>
+            <th>Consumed Amount</th>
+            <th>Operation</th>
+          </tr>
+        </thead>        
+                 
+          <?php 
+			if (!$this->zfcUserIdentity())
+					return;
+	          	 
+			if (!$this->authenticatedUser()->isReady())
+	          		$this->authenticatedUser()->loadFromDatabase($this->zfcUserIdentity()->getId());
+          ?>
+       </table>
+
+<script type="text/javascript" charset="utf-8">    
+          
+	$('#calls').dataTable( {
+
+		"bProcessing": true,
+		"bServerSide": true,
+		"sAjaxSource": "<?php echo $this->url("creditdata", array('action' => 'grid')); ?>",
+                
+		"aoColumns": [   
+		              { sWidth: '25%' },   
+		              { sWidth: '15%', sClass: "center" },   
+		              { sWidth: '15%', sClass: "center" },   
+		              { sWidth: '20%', sClass: "center" },
+		              { sWidth: '10%', sClass: "center" },
+		              { sWidth: '25%', sClass: "center" },            
+		              { sWidth: '25%', sClass: "center" }
+		          ] , 
+        
+	/*	"fnRowCallback": function( nRow, aData, iDisplayIndex ) {			
+			$('td:eq(4)', nRow).html( addCommas(Math.round(aData[4] / 1024)) + ' KB' );
+			return nRow;
+		}, 
+
+		"fnServerParams": function ( aoData ) {
+		      aoData.push( { "name": "directory_id", "value": selectedDirectoryID } );
+		 },
+		          */
+		
+		
+    } );
+
+	$.fn.dataTableExt.oApi.fnStandingRedraw = function(oSettings) {
+	    if(oSettings.oFeatures.bServerSide === false){
+	        var before = oSettings._iDisplayStart;
+	 
+	        oSettings.oApi._fnReDraw(oSettings);
+	 
+	        // iDisplayStart has been reset to zero - so lets change it back
+	        oSettings._iDisplayStart = before;
+	        oSettings.oApi._fnCalculateEnd(oSettings);
+	    }
+	      
+	    // draw the 'current' page
+	    oSettings.oApi._fnDraw(oSettings);
+	};
+	
+	$.extend( $.fn.dataTableExt.oStdClasses, {
+	    "sWrapper": "dataTables_wrapper form-inline"
+	} );
+
+	
+	setInterval(function() { reloadMainTable() }, 5000);
+	
+	function reloadMainTable(){
+		var oTable = $('#calls').dataTable();
+		
+		oTable.fnStandingRedraw();
+		
+		//window.setInterval(reloadMainTable(), 3000);
+	}
+	
+	function addCommas(nStr) 
+	{
+	    nStr += '';
+	    var x = nStr.split('.');
+	    var x1 = x[0];
+	    var x2 = x.length > 1 ? '.' + x[1] : '';
+	    var rgx = /(\d+)(\d{3})/;
+	    while (rgx.test(x1)) {
+	        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	    }
+	    return x1 + x2;
+	}
+			
+	
+</script>

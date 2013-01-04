@@ -1,0 +1,75 @@
+<?php echo $this->isAdmin; ?>
+
+<h1>List of Recordings</h1>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="recordings">
+        <thead>
+          <tr>
+          	<th>Recording #</th>
+            <th>Name</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Size</th>
+            <th>Creation Date</th>
+            <th>Operation</th>
+          </tr>
+        </thead>
+        <tbody> 
+                 
+          <?php 
+			if (!$this->zfcUserIdentity())
+					return;
+	          	 
+			if (!$this->authenticatedUser()->isReady())
+	          		$this->authenticatedUser()->loadFromDatabase($this->zfcUserIdentity()->getId());
+					          	 	          	
+          	
+			$printOptionDelete	= $this->authenticatedUser()->isAdmin() || $this->authenticatedUser()->isPrivilegedUser();
+			//$printOptionPlay	= $this->authenticatedUser()->isAdmin() || $this->authenticatedUser()->isPrivileged();
+				          
+				          
+          ?>
+          <?php foreach($recordings as $recording) : ?>          
+          	<tr class="gradeA">
+          		<td><?php echo $recording->recording_id; ?></td>
+	            <td class="center"><a href='#'><?php echo strlen($recording->name) > 30 ? substr($recording->name, 0, 30).'...' : $recording->name; ?></a></td>
+	            <td><?php echo $recording->from; ?></td>
+	            <td><?php echo $recording->to; ?></td>
+	            <td><?php echo number_format($recording->size / (1024)); ?> KB</td>
+	            <td class="center"><?php echo $recording->creation_date; ?></td>
+	          
+	            <td class="center">
+	            					<a href="<?php echo $this->url("recording", array('action' => 'play', 
+	            																						'id'	=> $recording->recording_id)); ?>"><i class="icon-play"></i></a> |        					
+									<a href="<?php echo $this->url("recording", array('action' => 'download', 
+	            																						'id'	=> $recording->recording_id)); ?>"><i class="icon-download"></i></a>	            																						
+	            					<?php 
+	            							if ($printOptionDelete)
+	            								echo '| <a href="' . $this->url("recording", array('action' => 'delete', 
+	            											'id'	=> $recording->recording_id)). '"><i class="icon-remove"></i></a>';
+	            					?>
+	            											
+	            					</td>              
+            <?php endforeach;?>
+           </tr>		
+		</tbody>
+</table>
+
+
+<script type="text/javascript" charset="utf-8">
+	$('#recordings').dataTable( {
+
+		"bProcessing": true,
+		"bServerSide": true,
+		"sAjaxSource": "<?php echo $this->url("recording", array('action' => 'test')); ?>",
+        "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+        
+/*        "bScrollInfinite": true,
+        "bScrollCollapse": true,
+        "sScrollY": "600px",
+        "bDeferRender": true */
+    } );
+    
+	$.extend( $.fn.dataTableExt.oStdClasses, {
+	    "sWrapper": "dataTables_wrapper form-inline"
+	} );
+</script>
