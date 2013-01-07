@@ -25,8 +25,8 @@ DROP TABLE IF EXISTS `call`;
 CREATE TABLE `call` (
   `call_id` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `confirmed` varchar(1) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
-  `max_amount` decimal(10,0) DEFAULT NULL,
-  `consumed_amount` decimal(10,0) DEFAULT NULL,
+  `max_amount` decimal(10,3) DEFAULT NULL,
+  `consumed_amount` decimal(10,3) DEFAULT NULL,
   `start_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `client_id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`call_id`),
@@ -41,7 +41,6 @@ CREATE TABLE `call` (
 
 LOCK TABLES `call` WRITE;
 /*!40000 ALTER TABLE `call` DISABLE KEYS */;
-INSERT INTO `call` VALUES ('mrrfwuvadavruus@carlosrdcnx-laptop.site','y','600','345','2013-01-04 21:11:40','0-01-01-000000027-000-00001');
 /*!40000 ALTER TABLE `call` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,15 +53,15 @@ DROP TABLE IF EXISTS `credit_data`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `credit_data` (
   `credit_data_id` int(11) NOT NULL AUTO_INCREMENT,
-  `max_amount` decimal(11,0) DEFAULT '0',
-  `consumed_amount` decimal(11,0) DEFAULT '0',
+  `max_amount` decimal(11,3) DEFAULT '0.000',
+  `consumed_amount` decimal(11,3) DEFAULT '0.000',
   `number_of_calls` int(11) DEFAULT '0',
   `concurrent_calls` int(11) DEFAULT '0',
   `credit_type_id` int(11) DEFAULT NULL,
   `client_id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`credit_data_id`),
   UNIQUE KEY `client_id_unique` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +70,6 @@ CREATE TABLE `credit_data` (
 
 LOCK TABLES `credit_data` WRITE;
 /*!40000 ALTER TABLE `credit_data` DISABLE KEYS */;
-INSERT INTO `credit_data` VALUES (15,'600','345',1,1,1,'0-01-01-000000027-000-00001');
 /*!40000 ALTER TABLE `credit_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,10 +82,11 @@ DROP TABLE IF EXISTS `money_based_call`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `money_based_call` (
   `call_id` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `cost_per_second` decimal(10,0) NOT NULL,
+  `cost_per_second` decimal(10,6) NOT NULL,
   `initial_pulse` int(11) NOT NULL,
   `final_pulse` int(11) NOT NULL,
-  PRIMARY KEY (`call_id`)
+  PRIMARY KEY (`call_id`),
+  CONSTRAINT `FK_money_based_call_callid` FOREIGN KEY (`call_id`) REFERENCES `call` (`call_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -111,7 +110,7 @@ CREATE TABLE `permission` (
   `permission_id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`permission_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,7 +149,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'caruizdiaz','$2y$14$FGLhuCxMiCYEPcqtvXMfmuSW0PgjJ.YAZApEg5/GRgm16sfgaf3xi','carlos.ruizdiaz@gmail.com','Carlos Ruiz Diaz',1,NULL),(2,'lzaracho','$2y$14$D9JgrToG5oSyjwcmmN.pHuOEfwXBoVoAqdVSrmsPhFwEfK8vEy35a','luis.zaracho@conexiongroup.com','Luis Zaracho',1,NULL),(5,'vgonzalez','$2y$14$LIliP3t97sIohBtKpd.RqOFyti4OyrCYknJ.uOGalAzyvRg.hd2Pi','victorpy@gmail.com','Victor Gonzalez',1,NULL),(7,'dozuna','$2y$14$VWVr6s.jKV/9chFUHW.1OejY9i37MplBdt0/ErouowJ8jV3NxgVwS','diegowalk@gmail.com','Diego Ozuna',1,NULL);
+INSERT INTO `user` VALUES (1,'caruizdiaz','$2y$14$FGLhuCxMiCYEPcqtvXMfmuSW0PgjJ.YAZApEg5/GRgm16sfgaf3xi','carlos.ruizdiaz@gmail.com','Carlos Ruiz Diaz',1,NULL),(2,'lzaracho','$2y$14$D9JgrToG5oSyjwcmmN.pHuOEfwXBoVoAqdVSrmsPhFwEfK8vEy35a','luis.zaracho@conexiongroup.com','Luis Zaracho',1,NULL),(5,'vgonzalez','$2y$14$LIliP3t97sIohBtKpd.RqOFyti4OyrCYknJ.uOGalAzyvRg.hd2Pi','victorpy@gmail.com','Victor Gonzalez',1,NULL),(7,'dozuna','$2y$14$VWVr6s.jKV/9chFUHW.1OejY9i37MplBdt0/ErouowJ8jV3NxgVwS','diegowalk@gmail.com','Diego Ozuna',3,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -163,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-01-04 18:40:48
+-- Dump completed on 2013-01-07 17:59:17
