@@ -62,6 +62,15 @@ class CallsController extends AbstractActionController
 		return array('calls' => $this->getCallsTable()->fetchAll());
 	}
 	
+	public function killAction()
+	{
+		$callID = $this->params()->fromRoute('id', 0);
+		
+		$client = new \Zend\XmlRpc\Client('http://localhost:5060/');
+		
+		$result = $client->call('cnxcc.kill_call', array($callID));		
+	}
+	
 	public function byClientAction()
 	{
 		if (!$this->zfcUserAuthentication()->hasIdentity())
@@ -71,11 +80,24 @@ class CallsController extends AbstractActionController
 		
 		$id = $this->params()->fromRoute('id', 0);
 		
-//		if (!$id)
-//			return $this->redirect()->toRoute('calls', array('action' => 'showall'));
-		
 		return array('client_id' => $id);
+	}
+	
+	public function callInfoAction()
+	{
+		if (!$this->authenticatedUser()->isReady())
+		{
+			$this->authenticatedUser()->loadFromDatabase($this->getUserTable(),
+												         $this->zfcUserAuthentication()->getIdentity()->getId());
+			
+		}
 		
+		$this->checkPermissions();
+							
+		$callID 	= $this->params()->fromQuery('cid');
+		$callInfo	= $this->getCallsTable()->getCallInfo($callID);
+				
+		return $this->getResponse()->setContent(Json::encode($callInfo));
 	}
 	
 	public function gridAction()
@@ -110,6 +132,8 @@ class CallsController extends AbstractActionController
 
 			$call['confirmed']	= $call['confirmed'] == 'y' ? '<span class="label label-success">yes</span>' : 
 															  '<span class="label label-important">no</span>';
+					
+			$call['call_id']	= '<a href="#" onclick="javascript: callInfo(\''.$call['call_id'].'\')">'.$call['call_id'].'</a>';
 			
 			array_push($data, array($call['call_id'], $call['confirmed'],
 									$call['max_amount'], $call['consumed_amount'],
@@ -134,11 +158,11 @@ class CallsController extends AbstractActionController
 		$scheme = $uri->getScheme();
 		$host 	= $uri->getHost();
 		 
-		$actions	= array('killall', 'showcalls');
+		$actions	= array('kill');
 		$urls		= array();
 		 
 		foreach ($actions as $action)
-			array_push($urls, sprintf('%s://%s/creditdata/%s/%s', $scheme, $host, $action, $creditDataID));
+			array_push($urls, sprintf('%s://%s/calls/%s/%s', $scheme, $host, $action, $creditDataID));
 		 
 		return $urls;
 	}

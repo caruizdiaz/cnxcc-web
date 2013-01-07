@@ -38,19 +38,7 @@
 		              { sWidth: '20%', sClass: "center" },
 		              { "bVisible":    false },
 		              { sWidth: '5%', sClass: "center" }
-		          ] , 
-        
-	/*	"fnRowCallback": function( nRow, aData, iDisplayIndex ) {			
-			$('td:eq(4)', nRow).html( addCommas(Math.round(aData[4] / 1024)) + ' KB' );
-			return nRow;
-		}, 
-
-		"fnServerParams": function ( aoData ) {
-		      aoData.push( { "name": "directory_id", "value": selectedDirectoryID } );
-		 },
-		          */
-		
-		
+		          ] , 		
     } );
 
 	$.fn.dataTableExt.oApi.fnStandingRedraw = function(oSettings) {
@@ -82,20 +70,56 @@
 	    "sWrapper": "dataTables_wrapper form-inline"
 	} );
 
-	
-
-	function addCommas(nStr) 
+	function callInfo(callID)
 	{
-	    nStr += '';
-	    var x = nStr.split('.');
-	    var x1 = x[0];
-	    var x2 = x.length > 1 ? '.' + x[1] : '';
-	    var rgx = /(\d+)(\d{3})/;
-	    while (rgx.test(x1)) {
-	        x1 = x1.replace(rgx, '$1' + ',' + '$2');
-	    }
-	    return x1 + x2;
+		$.ajax({
+	        url: "/calls/callinfo",
+	        data: { "cid": callID },
+	        cache: false,
+	        type: 'GET',
+	        dataType: 'json',
+	        contentType: "application/json;charset=utf-8",
+	        success: function (data, textStatus, jqXHR) {	
+	        	
+						var info    = '<table>' +
+								  '<tr>' + 
+								  '<td><i class="icon-arrow-right"></i> Initial pulse:</td>' +
+								  '<td><b>' +  data.initial_pulse + '</b></td>' +
+								  '</tr>' +
+								  '<tr>' + 
+								  '<td><i class="icon-arrow-right"></i> Final pulse:</td>' +
+								  '<td><b>' +  data.final_pulse + '</b></td>' +
+								  '</tr>' +
+								  '<tr>' + 
+								  '<td><i class="icon-arrow-right"></i> Cost per Sec:</td>' +
+								  '<td><b>' +  data.cost_per_second + '</b></td>' +
+								  '</tr>' +
+								  '</table>';
+			        	        	
+	                $('div.modal-body').html(info);
+	                $('#myModal').modal('show');
+	             },
+	             /*
+	        error: function (xhr, ajaxOptions, thrownError) {
+	               var errorMessage = xhr.responseText;
+	               //alert(errorMessage);
+	               //$('div.modal-body').html('<b>asd</b>');
+	               //$('#myModal').modal('show');
+	        	}*/
+	    });
 	}
-			
-	
+
 </script>
+ 
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Call Information</h3>
+  </div>
+  <div id="#callInfoBody" href="#callInfoBody" class="modal-body">
+	
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Close</button>   
+  </div>
+</div>

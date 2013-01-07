@@ -37,6 +37,16 @@ class CallsTable extends AbstractTableGateway
 		return $row;
 	}	
 	
+	public function getCallInfo($callID)
+	{
+		$query	= "SELECT * FROM money_based_call WHERE call_id = '$callID'";
+		$stmt	= $this->adapter->query($query);
+		
+		$results = $stmt->execute();
+		
+		return $results->current();
+	}
+	
 	public function getForGrid($offsetFrom, $offsetTo, $search, $sortingCol, $sortingDir)
 	{
 		$columns	= array('call_id', 'confirmed', 'max_amount', 'consumed_amount', 'start_timestamp', 'client_id');
