@@ -32,21 +32,21 @@ recently cloned repository
     # vim /etc/httpd/conf/cnxcc.conf
 </pre>
 <pre>
-    <VirtualHost 1.2.3.4:80>
+    &#60;VirtualHost 1.2.3.4:80&#62;
         DocumentRoot /home/cnxcc/cnxcc-web/public
         ErrorLog /var/log/httpd/cnxcc-error_log
-        <Directory /home/cnxcc/cnxcc-web/public/>
+        &#60;Directory /home/cnxcc/cnxcc-web/public/&#62;
             Options Indexes FollowSymLinks MultiViews
             DirectoryIndex index.php
             AllowOverride All
             Order allow,deny
             Allow from all
-        </Directory>
-    </VirtualHost>
+        &#60;/Directory&#62;
+    &#60;/VirtualHost&#62;
 </pre>
 
 <pre>
-# /etc/init.d/httpd restart
+    # /etc/init.d/httpd restart
 </pre>
 
 4. Create the database
