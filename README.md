@@ -11,11 +11,14 @@ Installation
 =========
 
 0. Create a new user, "cnxcc" for example (this is not mandatory, but it is recommended).
+<pre>
     # useradd cnxcc -m
     # su - cnxcc
-
+</pre>
 1. Go to your installation directory and clone the repository
-$ git clone git://github.com/caruizdiaz/cnxcc-web.git
+<pre>
+    $ git clone git://github.com/caruizdiaz/cnxcc-web.git
+</pre>
 
 2. Grant read/execute permissions over your directory
 # chmod 755 /home/cnxcc/
