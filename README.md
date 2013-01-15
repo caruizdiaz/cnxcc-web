@@ -45,9 +45,9 @@ recently cloned repository
     &#60;/VirtualHost&#62;
 </pre>
 
-<pre>
+    <pre>
     # /etc/init.d/httpd restart
-</pre>
+    </pre>
 
 4. Create the database
 <pre>
