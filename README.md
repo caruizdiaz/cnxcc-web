@@ -51,7 +51,7 @@ recently cloned repository
 
 4. Create the database
 <pre>
-    # mysql < /home/cnxcc/cnxcc-web/sql/cnxcc.sql
+    # mysql &#60; /home/cnxcc/cnxcc-web/sql/cnxcc.sql
 </pre>
 
 5. Now the page should be accessible. Go to http://1.2.3.4 and try it
