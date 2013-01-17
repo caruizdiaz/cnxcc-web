@@ -116,11 +116,15 @@ class CreditDataController extends AbstractActionController
 			
 			if ($this->authenticatedUser()->isAdmin() || $this->authenticatedUser()->isPrivilegedUser())
 				$links	= "<a href=\"$operations[0]\"><i class=\"icon-remove\"></i></a>";
-			
-			//$creditData['client_id']	= urlencode($creditData['client_id']);			
+				
 			$creditData['client_id']	= "<a href=\"$operations[1]\">{$creditData['client_id']}</a>";
 			$creditData['credit_type']  = "<span class=\"label label-warning\">{$creditData['credit_type']}</span>";
-														  
+			
+			if ($creditData['credit_type'] == 'money based')
+			{
+				$creditData['max_amount']	= number_format($creditData['max_amount'], 2);
+				$creditData['consumed_amount']	= number_format($creditData['consumed_amount'], 2);
+			}
 			
 			array_push($data, array($creditData['client_id'], $creditData['credit_type'], 
 									$creditData['number_of_calls'], $creditData['concurrent_calls'],

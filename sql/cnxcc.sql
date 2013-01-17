@@ -25,8 +25,8 @@ DROP TABLE IF EXISTS `call`;
 CREATE TABLE `call` (
   `call_id` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `confirmed` varchar(1) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
-  `max_amount` decimal(10,3) DEFAULT NULL,
-  `consumed_amount` decimal(10,3) DEFAULT NULL,
+  `max_amount` decimal(12,5) DEFAULT NULL,
+  `consumed_amount` decimal(12,5) DEFAULT NULL,
   `start_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `client_id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`call_id`),
@@ -53,15 +53,15 @@ DROP TABLE IF EXISTS `credit_data`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `credit_data` (
   `credit_data_id` int(11) NOT NULL AUTO_INCREMENT,
-  `max_amount` decimal(11,3) DEFAULT '0.000',
-  `consumed_amount` decimal(11,3) DEFAULT '0.000',
+  `max_amount` decimal(12,5) DEFAULT '0.00000',
+  `consumed_amount` decimal(12,5) DEFAULT '0.00000',
   `number_of_calls` int(11) DEFAULT '0',
   `concurrent_calls` int(11) DEFAULT '0',
   `credit_type_id` int(11) DEFAULT NULL,
   `client_id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`credit_data_id`),
   UNIQUE KEY `client_id_unique` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-01-07 17:59:17
+-- Dump completed on 2013-01-17 10:13:08

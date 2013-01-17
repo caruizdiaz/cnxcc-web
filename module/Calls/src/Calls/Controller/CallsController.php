@@ -134,6 +134,9 @@ class CallsController extends AbstractActionController
 															  '<span class="label label-important">no</span>';
 					
 			$call['call_id']	= '<a href="#" onclick="javascript: callInfo(\''.$call['call_id'].'\')">'.$call['call_id'].'</a>';
+						
+			$call['max_amount']		= number_format($call['max_amount'], 5);
+			$call['consumed_amount']= number_format($call['consumed_amount'], 5);	
 			
 			array_push($data, array($call['call_id'], $call['confirmed'],
 									$call['max_amount'], $call['consumed_amount'],
