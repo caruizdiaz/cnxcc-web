@@ -5,6 +5,7 @@ return array(
     	'DluTwBootstrap',
     	'User',
     	'CreditData',
+    	'SipServer',
     	'Calls',
     	'ZfcBase',
    		'ZfcUser'

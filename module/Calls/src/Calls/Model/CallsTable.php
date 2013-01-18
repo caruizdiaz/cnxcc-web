@@ -25,16 +25,10 @@ class CallsTable extends AbstractTableGateway
 	}
 	
 	public function getCallsByClientID($id)
-	{				
-		
+	{					
 		$rowset	= $this->select(array('client_id' => $id));
 		
-		$row	= $rowset->current();
-		
-		if (!$row)
-			throw new \Exception("Couldn't find row $id");
-		
-		return $row;
+		return $rowset;
 	}	
 	
 	public function getCallInfo($callID)

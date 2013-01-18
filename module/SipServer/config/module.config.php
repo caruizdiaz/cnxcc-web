@@ -1,22 +1,22 @@
 <?php
 return array('controllers' => array(
 					'invokables' => array(
-						'CreditData\Controller\CreditData' => 'CreditData\Controller\CreditDataController'
+						'SipServer\Controller\SipServer' => 'SipServer\Controller\SipServerController'
 					),
 			),
 		
 			'router' => array(
 					'routes' => array(
-							'creditdata' => array(
+							'sipsvr' => array(
 									'type' => 'segment',
 									'options' => array(
-											'route' => '/creditdata[/:action][/:id]',
+											'route' => '/sipsvr[/:action][/:id]',
 											'constraints' => array(
-												'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+												'action' => '[a-zA-Z][a-zA-Z]*',
 												'id' => '.+',
 											),
 											'defaults' => array(
-												'controller' => 'CreditData\Controller\CreditData',
+												'controller' => 'SipServer\Controller\SipServer',
 												'action' => 'index',
 											),
 									),
@@ -29,14 +29,15 @@ return array('controllers' => array(
 							'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
 					),*/
 					'template_path_stack' => array(
-							'creditdata' => __DIR__ . '/../view',
+							'sipsvr' => __DIR__ . '/../view',
 					),
 			),
+		
 			'service_manager' => array(
 				'factories' => array(
 						'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
-//						'recording_navigation' => 'User\Navigation\Service\UserNavigationFactory',
+//						'recording_navigation' => 'SipServer\Navigation\Service\SipServerNavigationFactory',
 //						'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
 				),
 		),
-	);
+		 );

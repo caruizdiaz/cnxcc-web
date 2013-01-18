@@ -1,0 +1,45 @@
+<h1>List of Directories</h1>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="users">
+        <thead>
+          <tr>
+          	<th>Directory #</th>
+            <th>Name</th>
+            <th>Number of Files</th>
+            <th>Max Disk Quota</th>
+            <th>Size</th>            
+            <th>Operation</th>
+          </tr>
+        </thead>
+        <tbody>          
+          
+          <?php foreach($directories as $directoy) : ?>          
+          	<tr class="gradeC">
+          		<td><?php echo $directoy->directory_id; ?></td>
+	            <td class="center"><?php echo $directoy->name; ?></td>
+	            <td><?php echo $directoy->number_of_files; ?></td>
+	            <td><?php echo $directoy->max_disk_quota; ?> GB</td>
+	            <td><?php echo number_format($directoy->size / (1024 * 1024)); ?> MB</td>	          
+	            <td class="center"><a href="<?php echo $this->url("directory", array('action' => 'edit', 
+	            											'id'	=> $directoy->directory_id)); ?>">Edit</a> | 
+	            				   <a href="<?php echo $this->url("directory", array('action' => 'delete', 
+	            											'id'	=> $directoy->directory_id)); ?>">Delete</a></td>              
+            <?php endforeach;?>
+           </tr>		
+		</tbody>
+</table>
+
+
+<script type="text/javascript" charset="utf-8">
+	$('#users').dataTable( {
+        "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>"
+    } );
+	$.extend( $.fn.dataTableExt.oStdClasses, {
+	    "sWrapper": "dataTables_wrapper form-inline"
+	} );
+</script>
+
+<?php 
+
+
+
+?>

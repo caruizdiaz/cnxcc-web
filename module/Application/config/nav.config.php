@@ -50,6 +50,22 @@ return array(
 										),
 								),
 						),
+						array(
+								'label'         => 'Server',
+								'type'          => 'uri',
+								'pages'         => array(
+										array(
+												'label'         => 'Show all',
+												'route'         => 'sipsvr',
+												'action'        => 'showall',
+										),
+										array(
+												'label'         => 'Add New',
+												'route'         => 'sipsvr',
+												'action'        => 'add',
+										),
+								),
+						),
 				),
 				'others' => array(
 						array(

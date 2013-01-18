@@ -1,11 +1,10 @@
 <?php
-namespace Calls;
+namespace SipServer;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 
-use Calls\Model\CallsTable;
 use SipServer\Model\SipServerTable; 
 
 class Module
@@ -56,22 +55,17 @@ class Module
     	$viewModel->setVariable('others_navbar', $othersNavbarContainer);
     }
     
+   
 	public function getServiceConfig()
     {    	    	
     	return array(
     			'factories' => array(
-    					'Calls\Model\CallsTable' => function($sm) {
+    					'SipServer\Model\SipServerTable' => function($sm) {
   //  						die("trying this shit");
-    						$dbAdapter 	= $sm->get('Zend\Db\Adapter\Adapter');
-    						$table 		= new CallsTable($dbAdapter);
-    						return $table;
-    					},
-    					/*'SipServer\Model\SipServerTable' => function($sm) {
-    						//  						die("trying this shit");
     						$dbAdapter 	= $sm->get('Zend\Db\Adapter\Adapter');
     						$table 		= new SipServerTable($dbAdapter);
     						return $table;
-    					},*/
+    					},
     			),
     		);
     }

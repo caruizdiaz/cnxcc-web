@@ -11,6 +11,32 @@ class CreditDataController extends AbstractActionController
 {
 	protected $creditDataTable;
 	protected $userTable;
+	protected $callsTable;
+	protected $sipServerTable;
+	
+	public function getCallsTable()
+	{
+		if (!$this->callsTable)
+		{
+			$sm						= $this->getServiceLocator();
+			//			print_r($sm);
+			$this->callsTable	= $sm->get('Calls\Model\CallsTable');
+	
+		}
+	
+		return $this->callsTable;
+	}
+	
+	public function getSipServerTable()
+	{
+		if (!$this->sipServerTable)
+		{
+			$sm						= $this->getServiceLocator();
+			$this->sipServerTable	= $sm->get('SipServer\Model\SipServerTable');
+		}
+	
+		return $this->sipServerTable;
+	}
 	
 	public function getUserTable()
 	{
@@ -119,12 +145,9 @@ class CreditDataController extends AbstractActionController
 				
 			$creditData['client_id']	= "<a href=\"$operations[1]\">{$creditData['client_id']}</a>";
 			$creditData['credit_type']  = "<span class=\"label label-warning\">{$creditData['credit_type']}</span>";
-			
-			if ($creditData['credit_type'] == 'money based')
-			{
-				$creditData['max_amount']	= number_format($creditData['max_amount'], 2);
-				$creditData['consumed_amount']	= number_format($creditData['consumed_amount'], 2);
-			}
+						
+			$creditData['max_amount']	= number_format($creditData['max_amount'], 3);
+			$creditData['consumed_amount']	= number_format($creditData['consumed_amount'], 3);			
 			
 			array_push($data, array($creditData['client_id'], $creditData['credit_type'], 
 									$creditData['number_of_calls'], $creditData['concurrent_calls'],
@@ -149,7 +172,7 @@ class CreditDataController extends AbstractActionController
     	$scheme = $uri->getScheme();
     	$host 	= $uri->getHost();
     	
-    	$actions	= array('killall', 'byclient');
+    	$actions	= array('dokillall', 'byclient');
     	$urls		= array();
     	
     	foreach ($actions as $action)
@@ -160,4 +183,25 @@ class CreditDataController extends AbstractActionController
     	
     	return $urls;
 	}
+	
+	public function doKillAllAction()
+	{
+		$client_id	= $this->getEvent()->getRouteMatch()->getParam('id');
+		
+		$sipServer = $this->getSipServerTable()->getDefaultSipServer();
+		
+		if ($sipServer == null)
+			throw new \Exception("No default SIP server found");
+		
+		$calls	= $this->getCallsTable()->getCallsByClientID($client_id);
+		
+		foreach($calls as $call)
+		{
+			$client = new \Zend\XmlRpc\Client("http://{$sipServer->host}:{$sipServer->port}/");		
+			$result = $client->call('cnxcc.kill_call', array($call->call_id));
+		}
+		return $this->redirect()->toRoute('creditdata', array('action' => 'showall'));
+	}
+	
+	
 }

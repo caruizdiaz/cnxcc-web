@@ -9,6 +9,7 @@ class CallsController extends AbstractActionController
 {
 	protected $callsTable;
 	protected $userTable;
+	protected $sipServerTable;
 	
 	public function getUserTable()
 	{
@@ -33,6 +34,17 @@ class CallsController extends AbstractActionController
 		
 		return $this->callsTable;
 	}
+	
+	public function getSipServerTable()
+	{
+		if (!$this->sipServerTable)
+		{
+			$sm						= $this->getServiceLocator();
+			$this->sipServerTable	= $sm->get('SipServer\Model\SipServerTable');
+		}
+	
+		return $this->sipServerTable;
+	} 
 	
 	protected function checkPermissions()
 	{
@@ -64,11 +76,30 @@ class CallsController extends AbstractActionController
 	
 	public function killAction()
 	{
+		if (!$this->zfcUserAuthentication()->hasIdentity())
+			return $this->redirect()->toRoute('user', array('action' => 'login'));
+		
+		$this->checkPermissions();	
+		
 		$callID = $this->params()->fromRoute('id', 0);
 		
-		$client = new \Zend\XmlRpc\Client('http://localhost:5060/');
+		return array('id' => $callID);
+	}
+	
+	public function dokillAction()
+	{
+		$callID = $this->params()->fromRoute('id', 0);
+				
+		$sipServer = $this->getSipServerTable()->getDefaultSipServer();
+	
+		if ($sipServer == null)
+			throw new \Exception("No default SIP server found");
+	
+		$client = new \Zend\XmlRpc\Client("http://{$sipServer->host}:{$sipServer->port}/");
+	
+		$result = $client->call('cnxcc.kill_call', array($callID));
 		
-		$result = $client->call('cnxcc.kill_call', array($callID));		
+		return $this->redirect()->toRoute('calls', array('action' => 'byclient'));
 	}
 	
 	public function byClientAction()
