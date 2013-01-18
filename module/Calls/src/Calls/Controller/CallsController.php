@@ -161,7 +161,7 @@ class CallsController extends AbstractActionController
 			if ($this->authenticatedUser()->isAdmin() || $this->authenticatedUser()->isPrivilegedUser())
 			{
 				$links		= "<a href=\"$operations[0]\"><i class=\"icon-remove\"></i> <span class=\"label label-important\">Force Drop </span></a>";
-				$links		.= "\n<br><a href=\"#\"><i class=\"icon-comment\"></i> <span class=\"label label-warning\">Record Call</span></a>";
+				$links		.= "\n<br><a href=\"#\"><i class=\"icon-headphones\"></i> <span class=\"label label-warning\">Record Call</span></a>";
 			}
 
 			$call['confirmed']	= $call['confirmed'] == 'y' ? '<span class="label label-success">yes</span>' : 
