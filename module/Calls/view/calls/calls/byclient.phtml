@@ -8,7 +8,8 @@
             <th>Max Amount</th>
             <th>Consumed Amount</th>
             <th>Started at</th>
-            <th>Client ID</th> 
+            <th>Time Elapsed</th>
+            <th>Client ID</th>            
             <th>Operation</th>
           </tr>
         </thead>        
@@ -26,16 +27,16 @@
           
 	$('#calls').dataTable( {
 
-		"bProcessing": true,
+		"bProcessing": false,
 		"bServerSide": true,
-		"sAjaxSource": "<?php echo $this->url("calls", array('action' => 'grid')); ?>",
-                
+		"sAjaxSource": "<?php echo $this->url("calls", array('action' => 'grid')); ?>",		
 		"aoColumns": [   
 		              { sWidth: '25%', sClass: "center" },   
 		              { sWidth: '15%', sClass: "center" },   
 		              { sWidth: '15%', sClass: "center" },   
 		              { sWidth: '15%', sClass: "center" },
-		              { sWidth: '20%', sClass: "center" },
+		              { sWidth: '15%', sClass: "center" },
+		              { sWidth: '15%', sClass: "center" },
 		              { "bVisible":    false },
 		              { sWidth: '5%', sClass: "center" }
 		          ] , 		
@@ -56,7 +57,7 @@
 	    oSettings.oApi._fnDraw(oSettings);
 	};
 
-	setInterval(function() { reloadMainTable() }, 5000);
+	setInterval(function() { reloadMainTable() }, 1500);
 	
 	function reloadMainTable(){
 		var oTable = $('#calls').dataTable();
@@ -110,6 +111,8 @@
 	}
 
 </script>
+
+<div id="search_table_processing" class="dataTables_processing" style="visibility: hidden;">Processing...</div>
  
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">

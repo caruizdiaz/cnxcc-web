@@ -99,7 +99,7 @@ class CallsController extends AbstractActionController
 	
 		$result = $client->call('cnxcc.kill_call', array($callID));
 		
-		return $this->redirect()->toRoute('calls', array('action' => 'byclient'));
+		return $this->redirect()->toRoute('calls', array('action' => 'showall'));
 	}
 	
 	public function byClientAction()
@@ -171,7 +171,7 @@ class CallsController extends AbstractActionController
 			
 			array_push($data, array($call['call_id'], $call['confirmed'],
 									$call['max_amount'], $call['consumed_amount'],
-									$call['start_timestamp'], $call['client_id'], $links));
+									$call['start_timestamp'], $call['time_elapsed'], $call['client_id'], $links));
 		}
 	
 		$nor	= $this->getCallsTable()->getNumberOfRows();

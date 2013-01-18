@@ -27,7 +27,7 @@
           
 	$('#calls').dataTable( {
 
-		"bProcessing": true,
+		"bProcessing": false,
 		"bServerSide": true,
 		"sAjaxSource": "<?php echo $this->url("creditdata", array('action' => 'grid')); ?>",
                 
@@ -74,7 +74,7 @@
 	} );
 
 	
-	setInterval(function() { reloadMainTable() }, 5000);
+	setInterval(function() { reloadMainTable() }, 1500);
 	
 	function reloadMainTable(){
 		var oTable = $('#calls').dataTable();

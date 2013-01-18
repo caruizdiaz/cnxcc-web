@@ -9,6 +9,7 @@ class Calls
 	public $consumed_amount;
 	public $start_timestamp;
 	public $client_id;
+	public $time_elapsed;
 	
 	public function exchangeArray($data)
 	{			
@@ -18,6 +19,7 @@ class Calls
 		$this->consumed_amount 	= (isset($data['consumed_amount'])) ? $data['consumed_amount'] : null;
 		$this->start_timestamp 	= (isset($data['start_timestamp'])) ? $data['start_timestamp'] : null;
 		$this->client_id		= (isset($data['client_id'])) ? $data['client_id'] : null;
+		$this->time_elapsed		= (isset($data['time_elapsed'])) ? $data['time_elapsed'] : null;
 	}	
 	
 	public function getArrayCopy()

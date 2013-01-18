@@ -9,6 +9,7 @@
             <th>Max Amount</th>
             <th>Consumed Amount</th>
             <th>Started at</th>
+            <th>Time Elapsed</th>
             <th>Client ID</th>
             <th>Operation</th>
           </tr>
@@ -27,15 +28,16 @@
           
 	$('#calls').dataTable( {
 
-		"bProcessing": true,
+		"bProcessing": false,
 		"bServerSide": true,
 		"sAjaxSource": "<?php echo $this->url("calls", array('action' => 'grid')); ?>",
                 
 		"aoColumns": [   
 		              { sWidth: '25%' },   
-		              { sWidth: '15%', sClass: "center" },   
+		              { sWidth: '10%', sClass: "center" },   
 		              { sWidth: '15%', sClass: "center" },   
 		              { sWidth: '15%', sClass: "center" },
+		              { sWidth: '10%', sClass: "center" },
 		              { sWidth: '10%', sClass: "center" },
 		              { sWidth: '25%', sClass: "center" },            
 		              { sWidth: '25%', sClass: "center" }
@@ -53,6 +55,32 @@
 		
 		
     } );
+
+	$.fn.dataTableExt.oApi.fnStandingRedraw = function(oSettings) {
+	    if(oSettings.oFeatures.bServerSide === false){
+	        var before = oSettings._iDisplayStart;
+	 
+	        oSettings.oApi._fnReDraw(oSettings);
+	 
+	        // iDisplayStart has been reset to zero - so lets change it back
+	        oSettings._iDisplayStart = before;
+	        oSettings.oApi._fnCalculateEnd(oSettings);
+	    }
+	      
+	    // draw the 'current' page
+	    oSettings.oApi._fnDraw(oSettings);
+	};
+    
+
+	setInterval(function() { reloadMainTable() }, 1500);
+	
+	function reloadMainTable(){
+		var oTable = $('#calls').dataTable();
+		
+		oTable.fnStandingRedraw();
+		
+		//window.setInterval(reloadMainTable(), 3000);
+	}
     
 	$.extend( $.fn.dataTableExt.oStdClasses, {
 	    "sWrapper": "dataTables_wrapper form-inline"

@@ -43,7 +43,9 @@ class CallsTable extends AbstractTableGateway
 	
 	public function getForGrid($offsetFrom, $offsetTo, $search, $sortingCol, $sortingDir)
 	{
-		$columns	= array('call_id', 'confirmed', 'max_amount', 'consumed_amount', 'start_timestamp', 'client_id');
+		$columns	= array('call_id', 'confirmed', 'max_amount', 
+							'consumed_amount', 'start_timestamp', 'client_id', 
+							'TIMEDIFF(CURRENT_TIMESTAMP, start_timestamp) AS time_elapsed');
 			
 		$search			= "%$search%";
 		$search			= $this->adapter->platform->quoteValue($search);
