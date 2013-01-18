@@ -141,7 +141,7 @@ class CreditDataController extends AbstractActionController
 			$links		= '';
 			
 			if ($this->authenticatedUser()->isAdmin() || $this->authenticatedUser()->isPrivilegedUser())
-				$links	= "<a href=\"$operations[0]\"><i class=\"icon-remove\"></i></a>";
+				$links	= "<a href=\"$operations[0]\"><i class=\"icon-remove\"></i> Force Drop</a>";
 				
 			$creditData['client_id']	= "<a href=\"$operations[1]\">{$creditData['client_id']}</a>";
 			$creditData['credit_type']  = "<span class=\"label label-warning\">{$creditData['credit_type']}</span>";
