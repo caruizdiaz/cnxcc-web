@@ -61,7 +61,7 @@ CREATE TABLE `credit_data` (
   `client_id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`credit_data_id`),
   UNIQUE KEY `client_id_unique` (`client_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,6 +124,33 @@ INSERT INTO `permission` VALUES (1,'Admin'),(2,'Basic'),(3,'Basic + Can Drop Cal
 UNLOCK TABLES;
 
 --
+-- Table structure for table `sip_server`
+--
+
+DROP TABLE IF EXISTS `sip_server`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sip_server` (
+  `host` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `port` int(11) NOT NULL,
+  `default_server` varchar(1) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
+  `sip_server_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`sip_server_id`),
+  UNIQUE KEY `hostport_unique` (`host`,`port`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sip_server`
+--
+
+LOCK TABLES `sip_server` WRITE;
+/*!40000 ALTER TABLE `sip_server` DISABLE KEYS */;
+INSERT INTO `sip_server` VALUES ('216.55.248.67',5060,'N',1),('216.55.248.67',5061,'N',4),('localhost',5060,'Y',6);
+/*!40000 ALTER TABLE `sip_server` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -162,4 +189,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-01-17 10:13:08
+-- Dump completed on 2013-01-18 14:49:31
