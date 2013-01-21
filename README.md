@@ -7,6 +7,11 @@ Updates
 =========
 - Still under development.
 
+Requirements
+==========
+- Latest release of Zend Framwork 2.
+- MySQL
+
 Installation
 =========
 
