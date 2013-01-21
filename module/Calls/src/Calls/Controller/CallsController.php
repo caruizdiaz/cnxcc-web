@@ -26,10 +26,8 @@ class CallsController extends AbstractActionController
 	{
 		if (!$this->callsTable)	
 		{
-			$sm						= $this->getServiceLocator();
-//			print_r($sm);
+			$sm					= $this->getServiceLocator();
 			$this->callsTable	= $sm->get('Calls\Model\CallsTable');
-			 
 		}
 		
 		return $this->callsTable;
@@ -44,7 +42,7 @@ class CallsController extends AbstractActionController
 		}
 	
 		return $this->sipServerTable;
-	} 
+	}
 	
 	protected function checkPermissions()
 	{
@@ -180,11 +178,10 @@ class CallsController extends AbstractActionController
 		$nor	= $this->getCallsTable()->getNumberOfRows();
 	
 		$output = array(
-				"sEcho" => $this->params()->fromQuery('sEcho'),
-				"iTotalRecords" => $nor,
-				"iTotalDisplayRecords" => $nor,
-				"aaData" => $data
-		);
+						"sEcho" => $this->params()->fromQuery('sEcho'),
+						"iTotalRecords" => $nor,
+						"iTotalDisplayRecords" => $nor,
+						"aaData" => $data);	
 	
 		return $this->getResponse()->setContent(Json::encode($output));
 	}

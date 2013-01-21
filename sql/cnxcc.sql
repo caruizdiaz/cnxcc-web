@@ -61,7 +61,7 @@ CREATE TABLE `credit_data` (
   `client_id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`credit_data_id`),
   UNIQUE KEY `client_id_unique` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +146,7 @@ CREATE TABLE `sip_server` (
 
 LOCK TABLES `sip_server` WRITE;
 /*!40000 ALTER TABLE `sip_server` DISABLE KEYS */;
-INSERT INTO `sip_server` VALUES ('216.55.248.67',5060,'N',1),('216.55.248.67',5061,'N',4),('localhost',5060,'Y',6);
+INSERT INTO `sip_server` VALUES ('localhost',5060,'Y',6);
 /*!40000 ALTER TABLE `sip_server` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +167,7 @@ CREATE TABLE `user` (
   `state` smallint(6) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username_unique` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +176,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'caruizdiaz','$2y$14$FGLhuCxMiCYEPcqtvXMfmuSW0PgjJ.YAZApEg5/GRgm16sfgaf3xi','carlos.ruizdiaz@gmail.com','Carlos Ruiz Diaz',1,NULL),(2,'lzaracho','$2y$14$D9JgrToG5oSyjwcmmN.pHuOEfwXBoVoAqdVSrmsPhFwEfK8vEy35a','luis.zaracho@conexiongroup.com','Luis Zaracho',1,NULL),(5,'vgonzalez','$2y$14$LIliP3t97sIohBtKpd.RqOFyti4OyrCYknJ.uOGalAzyvRg.hd2Pi','victorpy@gmail.com','Victor Gonzalez',1,NULL),(7,'dozuna','$2y$14$VWVr6s.jKV/9chFUHW.1OejY9i37MplBdt0/ErouowJ8jV3NxgVwS','diegowalk@gmail.com','Diego Ozuna',3,NULL);
+INSERT INTO `user` VALUES (1,'caruizdiaz','$2y$14$FGLhuCxMiCYEPcqtvXMfmuSW0PgjJ.YAZApEg5/GRgm16sfgaf3xi','carlos.ruizdiaz@gmail.com','Carlos Ruiz Diaz',1,NULL),(8,'admin','$2y$14$mHafhpYrQ2TjvjobsqYRsuTffd8RTkkJTdgk6nC7K4d7sV.32TTDa','admin@example.com','Mr. Administrator',1,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -189,4 +189,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-01-18 14:49:31
+-- Dump completed on 2013-01-21 18:11:07
