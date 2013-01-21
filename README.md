@@ -60,6 +60,8 @@ recently cloned repository
 </pre>
 
 5. Now the page should be accessible. Go to http://1.2.3.4 and try it
+   User: admin
+   Password: 123456
 
 6. Configure the database synchronization following these instructions
 <pre>
