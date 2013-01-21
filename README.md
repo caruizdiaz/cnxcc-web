@@ -63,5 +63,4 @@ recently cloned repository
 
 Screenshots
 =========
-![ScreenShot](http://caruizdiaz.com/wp-content/uploads/2013/01/cnxcc-1024x433.png)
-![ScreenShot](http://caruizdiaz.com/wp-content/uploads/2013/01/cnxcc1-1024x506.png)
+![ScreenShot](http://caruizdiaz.com/wp-content/uploads/2013/01/cnxcc2-1024x575.png)
