@@ -15,6 +15,7 @@
         </thead>        
                  
           <?php 
+
 			if (!$this->zfcUserIdentity())
 					return;
 	          	 
@@ -29,7 +30,7 @@
 
 		"bProcessing": false,
 		"bServerSide": true,
-		"sAjaxSource": "<?php echo $this->url("calls", array('action' => 'grid')); ?>",		
+		"sAjaxSource": "<?php echo $this->url("calls", array('action' => 'grid'))."/$client_id"; ?>",		
 		"aoColumns": [   
 		              { sWidth: '25%', sClass: "center" },   
 		              { sWidth: '10%', sClass: "center" },   

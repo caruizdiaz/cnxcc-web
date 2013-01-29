@@ -137,6 +137,7 @@ class CallsController extends AbstractActionController
 					$this->zfcUserAuthentication()->getIdentity()->getId());
 		}
 	
+		$clientID	= $this->params()->fromRoute('id', null);
 		$from		= $this->params()->fromQuery('iDisplayStart');
 		$to			= $this->params()->fromQuery('iDisplayLength');
 		$search		= $this->params()->fromQuery('sSearch');
@@ -147,7 +148,8 @@ class CallsController extends AbstractActionController
 														$to,
 														$search,
 														$sortingCol,
-														$sortingDir);
+														$sortingDir,
+														$clientID);
 	
 		$data		= array();
 	

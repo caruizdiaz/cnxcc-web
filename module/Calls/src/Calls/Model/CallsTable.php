@@ -41,7 +41,7 @@ class CallsTable extends AbstractTableGateway
 		return $results->current();
 	}
 	
-	public function getForGrid($offsetFrom, $offsetTo, $search, $sortingCol, $sortingDir)
+	public function getForGrid($offsetFrom, $offsetTo, $search, $sortingCol, $sortingDir, $clientID)
 	{
 		$columns	= array('call_id', 'confirmed', 'max_amount', 
 							'consumed_amount', 'start_timestamp', 'client_id', 
@@ -52,11 +52,20 @@ class CallsTable extends AbstractTableGateway
 		$selectColums	= implode(',', $columns);
 	
 		$query		= "SELECT $selectColums from `{$this->table}`";
+		
+		if ($clientID != null)
+			$query = "$query WHERE client_id = '$clientID'";
+		
 		$filterByDir= "";
 	
-		if (isset($search) && $search != "'%%'")
+		if (isset($search) && $search != "'%%'") 
+		{
 				$query	=  "SELECT $selectColums from `{$this->table}` WHERE ".
 				"call_id LIKE $search";
+				
+				if ($clientID != null)
+					$query .= " AND client_id = '$clientID'";
+		}
 	
 		$query .= " ORDER BY {$columns[$sortingCol]} $sortingDir LIMIT $offsetFrom, $offsetTo";
 
