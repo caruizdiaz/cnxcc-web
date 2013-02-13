@@ -143,13 +143,15 @@ class CallsController extends AbstractActionController
 		$search		= $this->params()->fromQuery('sSearch');
 		$sortingCol	= intval($this->params()->fromQuery('iSortCol_0'));
 		$sortingDir	= $this->params()->fromQuery('sSortDir_0');
-	
+		$nor		= 0;
+		
 		$calls		= $this->getCallsTable()->getForGrid($from,
 														$to,
 														$search,
 														$sortingCol,
 														$sortingDir,
-														$clientID);
+														$clientID,
+														$nor);
 	
 		$data		= array();
 		$displayNor	= 0;
@@ -178,7 +180,7 @@ class CallsController extends AbstractActionController
 									$call['start_timestamp'], $call['time_elapsed'], $call['client_id'], $links));
 		}
 	
-		$nor	= $this->getCallsTable()->getNumberOfRows();
+//		$nor	= $this->getCallsTable()->getNumberOfRows();
 	
 		$output = array(
 						"sEcho" => $this->params()->fromQuery('sEcho'),
