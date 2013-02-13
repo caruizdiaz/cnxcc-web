@@ -41,7 +41,9 @@ class CallsTable extends AbstractTableGateway
 		return $results->current();
 	}
 	
-	public function getForGrid($offsetFrom, $offsetTo, $search, $sortingCol, $sortingDir, $clientID, &$nor)
+	public function getForGrid($offsetFrom, $offsetTo, $search, 
+								$sortingCol, $sortingDir, $clientID, 
+								&$totalNor, &$filteredNor)
 	{
 		$columns	= array('call_id', 'confirmed', 'max_amount', 
 							'consumed_amount', 'start_timestamp', 'client_id', 
@@ -86,7 +88,8 @@ class CallsTable extends AbstractTableGateway
 		$stmt	= $this->adapter->query($countQuery);
 		$count 	= $stmt->execute()->current();
 			
-		$nor	= $count['nor'];
+		$filteredNor	= $count['nor'];
+		$totalNor		= $this->getNumberOfRows();
 		
 		return $results;
 	
