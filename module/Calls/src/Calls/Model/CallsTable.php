@@ -58,7 +58,7 @@ class CallsTable extends AbstractTableGateway
 		{
 			$filter		= " WHERE client_id = '$clientID'";
 			$query	 	= "$query $filter";
-			$countQuery	= " $filter";
+			$countQuery	= "$countQuery $filter";
 		}
 		
 		$filterByDir= "";

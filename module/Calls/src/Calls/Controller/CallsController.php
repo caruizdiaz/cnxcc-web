@@ -155,6 +155,7 @@ class CallsController extends AbstractActionController
 	
 		$data		= array();
 		$displayNor	= 0;
+		
 		foreach($calls as $call)
 		{
 			$operations	= $this->generateOperationLink($call['call_id']);
