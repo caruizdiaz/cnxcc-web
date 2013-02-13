@@ -189,7 +189,7 @@ class CallsController extends AbstractActionController
 						"iTotalDisplayRecords" => $displayNor,
 						"aaData" => $data);	
 		
-		return $this->getResponse()->setContent(Json::encode($output));
+		return $this->getResponse()->setContent(json_encode($output));
 	}
 	
 	protected function generateOperationLink($creditDataID)
