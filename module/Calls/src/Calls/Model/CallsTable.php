@@ -84,9 +84,8 @@ class CallsTable extends AbstractTableGateway
 		$results = $stmt->execute();
 
 		$stmt	= $this->adapter->query($countQuery);
-		$count 	= $stmt->execute();
-		
-		$count->current();
+		$count 	= $stmt->execute()->current();
+			
 		$nor	= $count['nor'];
 		
 		return $results;
