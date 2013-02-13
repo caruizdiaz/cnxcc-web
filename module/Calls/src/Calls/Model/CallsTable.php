@@ -41,7 +41,7 @@ class CallsTable extends AbstractTableGateway
 		return $results->current();
 	}
 	
-	public function getForGrid($offsetFrom, $offsetTo, $search, $sortingCol, $sortingDir, $clientID)
+	public function getForGrid($offsetFrom, $offsetTo, $search, $sortingCol, $sortingDir, $clientID, &$nor)
 	{
 		$columns	= array('call_id', 'confirmed', 'max_amount', 
 							'consumed_amount', 'start_timestamp', 'client_id', 
@@ -50,29 +50,44 @@ class CallsTable extends AbstractTableGateway
 		$search			= "%$search%";
 		$search			= $this->adapter->platform->quoteValue($search);
 		$selectColums	= implode(',', $columns);
-	
+		
+		$countQuery	= "SELECT COUNT(*) AS nor FROM `{$this->table}`";
 		$query		= "SELECT $selectColums from `{$this->table}`";
 		
 		if ($clientID != null)
-			$query = "$query WHERE client_id = '$clientID'";
+		{
+			$filter		= " WHERE client_id = '$clientID'";
+			$query	 	= "$query $filter";
+			$countQuery	= " $filter";
+		}
 		
 		$filterByDir= "";
 	
 		if (isset($search) && $search != "'%%'") 
 		{
-				$query	=  "SELECT $selectColums from `{$this->table}` WHERE ".
-				"call_id LIKE $search";
+				$filter	= "WHERE call_id LIKE $search";
+				
+				$query	=  "SELECT $selectColums from `{$this->table}` $filter ";
+				$countQuery	= "SELECT COUNT(*) as nor from `{$this->table}` $filter";
 				
 				if ($clientID != null)
-					$query .= " AND client_id = '$clientID'";
+				{
+					$filter	= " AND client_id = '$clientID'";
+					$query .= " $filter";
+					$countQuery .= " $filter";
+				}
 		}
 	
 		$query .= " ORDER BY {$columns[$sortingCol]} $sortingDir LIMIT $offsetFrom, $offsetTo";
 
 		$stmt	= $this->adapter->query($query);
-
 		$results = $stmt->execute();
 
+		$stmt	= $this->adapter->query($countQuery);
+		$count 	= $stmt->execute();
+		
+		$nor	= $count['nor'];
+		
 		return $results;
 	
 	}

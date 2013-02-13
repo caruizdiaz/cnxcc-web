@@ -152,7 +152,7 @@ class CallsController extends AbstractActionController
 														$clientID);
 	
 		$data		= array();
-	
+		$displayNor	= 0;
 		foreach($calls as $call)
 		{
 			$operations	= $this->generateOperationLink($call['call_id']);
@@ -172,6 +172,7 @@ class CallsController extends AbstractActionController
 			$call['max_amount']		= number_format($call['max_amount'], 5);
 			$call['consumed_amount']= number_format($call['consumed_amount'], 5);	
 			
+			$displayNor++;
 			array_push($data, array($call['call_id'], $call['confirmed'],
 									$call['max_amount'], $call['consumed_amount'],
 									$call['start_timestamp'], $call['time_elapsed'], $call['client_id'], $links));
@@ -182,7 +183,7 @@ class CallsController extends AbstractActionController
 		$output = array(
 						"sEcho" => $this->params()->fromQuery('sEcho'),
 						"iTotalRecords" => $nor,
-						"iTotalDisplayRecords" => $nor,
+						"iTotalDisplayRecords" => $displayNor,
 						"aaData" => $data);	
 	
 		return $this->getResponse()->setContent(Json::encode($output));
