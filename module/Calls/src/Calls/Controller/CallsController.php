@@ -188,7 +188,7 @@ class CallsController extends AbstractActionController
 						"iTotalRecords" => $nor,
 						"iTotalDisplayRecords" => $displayNor,
 						"aaData" => $data);	
-	
+		
 		return $this->getResponse()->setContent(Json::encode($output));
 	}
 	
