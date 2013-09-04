@@ -34,7 +34,7 @@ Installation
 3. Create a virtual host configuration file for apache, pointing the document root to the public directory of your
 recently cloned repository
 <pre>
-    # vim /etc/httpd/conf/cnxcc.conf
+    # vim /etc/httpd/conf.d/cnxcc.conf
 </pre>
 <pre>
     &#60;VirtualHost 1.2.3.4:80&#62;
@@ -56,7 +56,7 @@ recently cloned repository
 
 4. Create the database
 <pre>
-    # mysql &#60; /home/cnxcc/cnxcc-web/sql/cnxcc.sql
+    # mysql cnxcc &#60; /home/cnxcc/cnxcc-web/sql/cnxcc.sql
 </pre>
 
 5. Now the page should be accessible. Go to http://1.2.3.4 and try it
