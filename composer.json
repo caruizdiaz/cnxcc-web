@@ -1,0 +1,17 @@
+{
+    "name": "cnxcc/web",
+    "description": "Web Interface for CNXCC prepaid module for Kamailio",
+    "license": "GPLv2",
+    "keywords": [
+        "kamailio",
+        "cnxcc"
+    ],
+    "homepage": "http://caruizdiaz.com/",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.*",
+        "dlu/dlutwbootstrap": "dev-master",
+        "zf-commons/zfc-base": "0.*",
+        "zf-commons/zfc-user": "dev-master"
+    }
+}
