@@ -10,7 +10,7 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.*",
-        "caruizdiaz/dlutwbootstrap": "dev-master",
+        "dlu/dlutwbootstrap": "dev-master",
         "zf-commons/zfc-base": "0.*",
         "zf-commons/zfc-user": "dev-master"
     }
