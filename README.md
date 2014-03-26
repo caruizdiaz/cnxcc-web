@@ -59,13 +59,20 @@ recently cloned repository
     # mysql cnxcc &#60; /home/cnxcc/cnxcc-web/sql/cnxcc.sql
 </pre>
 
-5. Now the page should be accessible. Go to http://1.2.3.4 and try it
+5. Install ZendFramework and its dependencies
+<pre>   
+    cd /home/cnxcc/cnxcc-web
+    php -r "readfile('https://getcomposer.org/installer');" | php
+    php composer.phar install
+</pre>
+
+6. Now the page should be accessible. Go to http://1.2.3.4 and try it
 <pre>   
     User: admin
     Password: 123456
 </pre>
 
-6. Configure the database synchronization following these instructions
+7. Configure the database synchronization following these instructions
 <pre>
     https://github.com/caruizdiaz/cnxcc-db-sync/blob/master/README.md
 </pre>
