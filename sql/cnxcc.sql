@@ -16,8 +16,8 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-CREATE DATABASE cnxcc;
-USE cnxcc;
+CREATE DATABASE cnxcc_web;
+USE cnxcc_web;
 --
 -- Table structure for table `call`
 --
