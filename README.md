@@ -56,7 +56,7 @@ recently cloned repository
 
 4. Create the database
 <pre>
-    # mysql cnxcc &#60; /home/cnxcc/cnxcc-web/sql/cnxcc.sql
+    # mysql &#60; /home/cnxcc/cnxcc-web/sql/cnxcc.sql
 </pre>
 
 5. Install ZendFramework and its dependencies
