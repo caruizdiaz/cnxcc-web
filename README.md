@@ -77,6 +77,24 @@ recently cloned repository
     https://github.com/caruizdiaz/cnxcc-db-sync/blob/master/README.md
 </pre>
 
+8. You can configure the database connection credentials in:
+<pre>
+    'db' => array(
+                'driver'        => 'Pdo',
+                'dsn'           => 'mysql:dbname=cnxcc;host=127.0.0.1',
+                'username' => 'root',
+                'password' => '',
+                'driver_options' => array(
+                                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+                ),
+    ),
+</pre>
+
+On the file located at:
+<pre>
+./module/Application/config/module.config.php
+</pre>
+
 Screenshots
 =========
 ![ScreenShot](http://caruizdiaz.com/wp-content/uploads/2013/01/cnxcc21-1024x495.png)
