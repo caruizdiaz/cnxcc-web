@@ -65,7 +65,7 @@ recently cloned repository
     php -r "readfile('https://getcomposer.org/installer');" | php
     php composer.phar install
 </pre>
-You may also need to install some other php dependencies, php-dom for example. Check /var/log/httpd/cnxcc-error_log error log.
+You may also need to install some other php dependencies, php-dom for example. Check "/var/log/httpd/cnxcc-error_log" error log.
 
 6. Now the page should be accessible. Go to http://1.2.3.4 and try it
 <pre>   
